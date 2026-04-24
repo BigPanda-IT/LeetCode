@@ -1,0 +1,27 @@
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var longestMonotonicSubarray = function(nums) {
+
+    let voz=1;
+    let ub=1;
+    let maxlength=1;
+
+    for (let i=0; i<nums.length-1; i++) {
+        if (nums[i] < nums[i+1]) {
+            voz++;
+            ub=1;
+        }
+        else if (nums[i] > nums[i+1]) {
+            ub++;
+            voz=1;
+        }
+        else {
+            voz=1;
+            ub=1;
+        }
+        maxlength = Math.max(voz, ub, maxlength);
+    }
+    return maxlength;
+};
