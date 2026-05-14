@@ -1,0 +1,44 @@
+/**
+ * @param {number[]} arr
+ * @return {number}
+ */
+var longestMountain = function(arr) {
+    if (arr.length < 3) return 0;
+    let top = [];
+    let left = 1;
+    let right = 0;
+    let maxlength = 0;
+
+    for (let i=1; i<arr.length-1; i++) {
+        if(arr[i-1] < arr[i] && arr[i] > arr[i+1]) {
+            top.push(i);
+        }
+    }
+
+    for(let k = 0; k<top.length; k++) {
+        for (let l=top[k]; l>0; l--) {
+            if (arr[l-1] < arr[l]) {
+                left++;
+            }
+            else {
+                break;
+            }
+        }
+
+        for (let r=top[k]; r<arr.length-1; r++) {
+            if (arr[r] > arr[r+1]) {
+                right++;
+            }
+            else {
+                break;
+            }
+        }
+        maxlength = Math.max(maxlength, left + right);
+        left = 1;
+        right = 0;
+    }
+
+    if (maxlength === 0) return 0;
+
+    return maxlength;
+};
